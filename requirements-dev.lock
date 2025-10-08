@@ -6,6 +6,8 @@
 #   features: []
 #   all-features: false
 #   with-sources: false
+#   generate-hashes: false
+#   universal: false
 
 -e file:.
 aiohttp==3.9.5
@@ -20,6 +22,8 @@ anyio==4.3.0
     # via jupyter-server
 appdirs==1.4.4
     # via wandb
+appnope==0.1.4
+    # via ipykernel
 argon2-cffi==23.1.0
     # via jupyter-server
 argon2-cffi-bindings==21.2.0
@@ -77,7 +81,6 @@ fastjsonschema==2.19.1
     # via nbformat
 filelock==3.9.0
     # via torch
-    # via triton
 fonttools==4.51.0
     # via matplotlib
 fqdn==1.5.1
@@ -93,6 +96,8 @@ gitdb==4.0.11
     # via gitpython
 gitpython==3.1.43
     # via wandb
+gurobipy==12.0.3
+    # via research-template
 h11==0.14.0
     # via httpcore
 httpcore==1.0.5
@@ -372,7 +377,7 @@ soupsieve==2.5
     # via beautifulsoup4
 stack-data==0.6.3
     # via ipython
-sympy==1.12
+sympy==1.14.0
     # via torch
 terminado==0.18.1
     # via jupyter-server
@@ -384,10 +389,9 @@ tinycss2==1.2.1
 tomli==2.0.1
     # via jupyterlab
     # via mypy
-torch==2.1.1+cu121
+torch==2.8.0
     # via lightning
     # via pytorch-lightning
-    # via research-template
     # via torchmetrics
 torchmetrics==1.0.3
     # via lightning
@@ -419,11 +423,9 @@ traitlets==5.14.3
     # via nbconvert
     # via nbformat
     # via qtconsole
-triton==2.1.0
-    # via torch
 types-python-dateutil==2.9.0.20240316
     # via arrow
-typing-extensions==4.8.0
+typing-extensions==4.15.0
     # via anyio
     # via async-lru
     # via ipython
