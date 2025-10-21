@@ -15,6 +15,7 @@ dependencies = [
     "tqdm>=4.64.1",
     "lightning>=2.2.3",
     "gurobipy>=12.0.3",
+    "mosek>=11.0.29",
 ]
 readme = "README.md"
 requires-python = ">= 3.10"
