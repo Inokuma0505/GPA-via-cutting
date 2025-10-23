@@ -214,7 +214,7 @@ def gpa_optimize(
     u: Optional[np.ndarray] = None,
     init: Optional[np.ndarray] = None,
     tol: float = 1e-8,
-    max_iters: int = 10_000,
+    max_iter: int = 10_000,
     compute_lambda_by_power: bool = True,
     verbose: bool = False,
 ) -> Tuple[np.ndarray, Dict[str, Any]]:
@@ -268,7 +268,7 @@ def gpa_optimize(
     converged = False
     iters = 0
 
-    for t in range(1, max_iters + 1):
+    for t in range(1, max_iter + 1):
         g = gradQ(p)
         q = p - (1.0 / L) * g
         p_next = _project_onto_omega(q, p0, delta, k, l, u)
@@ -303,5 +303,4 @@ def gpa_optimize(
         "L": L,
     }
     return p, info
-
 
