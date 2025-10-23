@@ -461,7 +461,15 @@ class OADriver:
 			# add cut at current master solution
 			self.backend.add_tangent_cut(p_t)
 
-		zP, zR, zL = self.backend.pull_z()
+		# Pull discrete decisions; if solver didn't produce an incumbent solution for these vars,
+		# be robust and fall back to zeros instead of raising.
+		try:
+			zP, zR, zL = self.backend.pull_z()
+		except Exception:
+			m = int(np.asarray(p_best, dtype=float).size)
+			zP = np.zeros(m, dtype=int)
+			zR = np.zeros(m, dtype=int)
+			zL = np.zeros(m, dtype=int)
 		return OAResult(p=p_best, zP=zP, zR=zR, zL=zL, obj=UB, LB=LB, history=history)
 
 

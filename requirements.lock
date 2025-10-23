@@ -25,6 +25,9 @@ certifi==2022.12.7
     # via requests
 charset-normalizer==2.1.1
     # via requests
+colorama==0.4.6
+    # via loguru
+    # via tqdm
 filelock==3.9.0
     # via torch
 frozenlist==1.4.1
@@ -131,5 +134,7 @@ tzdata==2024.1
     # via pandas
 urllib3==1.26.13
     # via requests
+win32-setctime==1.2.0
+    # via loguru
 yarl==1.9.4
     # via aiohttp

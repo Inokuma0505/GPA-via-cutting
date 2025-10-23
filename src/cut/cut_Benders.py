@@ -106,7 +106,8 @@ def build_master(data: PriceOptData, log: bool = False):  # -> (model, vars...)
 
 	for i in range(n):
 		m.addConstr(z0[i] + zp[i] + zm[i] == 1, name=f"onehot[{i}]")
-		m.addConstr(zp[i] + zm[i] <= y[i], name=f"change_link[{i}]")
+		# Strengthen linking: y == zp + zm (instead of <=) for tighter formulation
+		m.addConstr(y[i] == zp[i] + zm[i], name=f"change_link[{i}]")
 	m.addConstr(quicksum(y[i] for i in range(n)) <= data.k, name="cardinality")
 
 	for i in range(n):
@@ -183,7 +184,8 @@ def solve_sub_and_get_cut(
 	for i, c in cons_eq.items():
 		g[i] = -c.Pi
 	for i, c in cons_lo.items():
-		g[i] = c.Pi
+		# p >= t was modeled as -p <= -t, so Gurobi's Pi corresponds to the <= form; use -Pi
+		g[i] = -c.Pi
 	for i, c in cons_up.items():
 		g[i] = -c.Pi
 	return True, v_hat, g

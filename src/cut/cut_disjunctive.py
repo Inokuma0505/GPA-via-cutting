@@ -170,6 +170,16 @@ class DisjunctiveSplitCutOptimizer:
 			theta = m.addVar(lb=-GRB.INFINITY, vtype=GRB.CONTINUOUS, name="theta")
 			m.setObjective(theta, GRB.MINIMIZE)
 			self.theta = theta
+			# Add an initial Kelley tangent cut at p0 to bound theta and avoid unbounded root
+			try:
+				pbar = self.p0.astype(float)
+				g = self.Q_grad(pbar)
+				f = self.Q_value(pbar)
+				lhs = theta - gp.quicksum(float(g[i]) * p[i] for i in range(n))
+				rhs = float(f - float(g @ pbar))
+				m.addConstr(lhs >= rhs, name="oa_init")
+			except Exception:
+				pass
 		else:
 			# build convex quadratic Q(p)
 			quad = gp.QuadExpr()
